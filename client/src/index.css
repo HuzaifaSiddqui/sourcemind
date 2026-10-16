@@ -1,0 +1,19 @@
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/source-serif-4';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { @apply bg-canvas font-sans text-base text-fg; font-feature-settings: 'ss01', 'cv11'; }
+  ::selection { background: #C9D4FF; }
+  :focus-visible { outline-color: #5B7CFF; }
+  * { scrollbar-width: thin; scrollbar-color: #CDD3DF transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

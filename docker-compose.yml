@@ -1,0 +1,32 @@
+# Full stack: SourceMind + Qdrant (vectors) + MongoDB (application data).
+#   docker compose up --build        → http://localhost:4000
+# Add OPENAI_API_KEY to a .env file next to this compose file for LLM answers.
+services:
+  app:
+    build: .
+    ports: ["4000:4000"]
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      QDRANT_URL: http://qdrant:6333
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DB: sourcemind
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      CHAT_MODEL: ${CHAT_MODEL:-gpt-4o-mini}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-3-small}
+    volumes: [uploads:/app/server/data]
+    depends_on: [qdrant, mongo]
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    ports: ["6333:6333"]
+    volumes: [qdrant:/qdrant/storage]
+
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo:/data/db]
+
+volumes:
+  uploads:
+  qdrant:
+  mongo:

@@ -1,0 +1,20 @@
+{
+  "name": "sourcemind",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SourceMind AI — enterprise RAG knowledge workspace with cited, permission-aware answers.",
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -k -n api,web -c blue,magenta \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "start": "npm start --prefix server",
+    "seed": "npm run seed --prefix server",
+    "typecheck": "npm run typecheck --prefix server && npm run typecheck --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "engines": {
+    "node": ">=20.10"
+  }
+}
